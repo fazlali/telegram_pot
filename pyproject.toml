@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0", "requests~=2.28"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telegram_pot"
+version = "0.0.1"
+authors = [
+  { name="Amin Fazlali", email="amin@fazlali.net" },
+]
+description = "A Telegram python bot api"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/fazlali/telegram_pot"
+"Bug Tracker" = "https://github.com/fazlali/telegram_pot/issues"
