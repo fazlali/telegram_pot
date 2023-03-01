@@ -53,19 +53,22 @@ class TelegramBot:
                 print(1, time() - t)
                 for update in updates:
                     t = time()
-                    self.on_update(update)
+                    self._new_update(update)
                     print(2, time() - t)
                     offset = update.update_id + 1
             except:
                 print_exc()
                 sleep(60)
 
-    def on_update(self, update: Update):
+    def _new_update(self, update: Update):
         for update_type, callbacks in self.update_listeners.items():
             if update_type == update.type:
                 for callback in callbacks:
                     if callback(update):
                         break
+
+    def new_update(self, update: dict):
+        return self._new_update(Update(update))
 
     def add_listener(self, update_type: str, callback: Callable[[Update], bool]):
         listeners = self.update_listeners.get(update_type)
