@@ -167,12 +167,18 @@ class Model(metaclass=BaseModel):
 
     def to_dict(self):
         result = {}
+
+        def recursive(v):
+            if isinstance(v, Model):
+                return v.to_dict()
+            if isinstance(v, list):
+                return [recursive(i) for i in v]
+            return v
+
         for filed in self.__fields__:
             value = getattr(self, filed.name, None)
             if value is not None:
-                if isinstance(value, Model):
-                    value = value.to_dict()
-                result[filed.name] = value
+                result[filed.name] = recursive(value)
         return result
 
 
