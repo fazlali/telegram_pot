@@ -68,7 +68,7 @@ class TelegramBot:
                         break
 
     def new_update(self, update: dict):
-        return self._new_update(Update(update))
+        return self._new_update(Update.from_dict(update))
 
     def add_listener(self, update_type: str, callback: Callable[[Update], bool]):
         listeners = self.update_listeners.get(update_type)
