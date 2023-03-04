@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+import io
+
 from .model import Model
 
 
@@ -667,7 +670,21 @@ class InputMediaDocument(InputMedia):
 
 
 class InputFile(Model):
-    pass
+    file_url: str
+    file_id: str
+
+    upload_file_name: str
+    upload_file_object: io.BytesIO
+    upload_file_content_type: str
+
+    def to_tuple(self) -> tuple[str, io.BytesIO, str]:
+        return self.upload_file_name, self.upload_file_object, self.upload_file_content_type
+
+    def to_dict(self):
+        if self.upload_file_name or self.upload_file_content_type or self.upload_file_object:
+            return self
+        else:
+            return self.file_id or self.file_url or None
 
 
 class Sticker(Model):

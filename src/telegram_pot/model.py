@@ -1,4 +1,5 @@
 import builtins
+import io
 import sys
 import typing
 from types import GenericAlias
@@ -11,7 +12,7 @@ def populate_value(_type, _value):
     if _value is None:
         return None
 
-    if _type in [str, bool, int, float, dict]:
+    if _type in [str, bool, int, float, dict, io.BytesIO]:
         if isinstance(_value, _type):
             return _value
     elif issubclass(_type, Model):
@@ -191,8 +192,11 @@ class API(Model):
         return self._result
 
     def get_request(self) -> requests.Request:
+        from .models import InputFile
         data = self.to_dict()
-        files = {}
+        files = {k: v.to_tuple() for k, v in data.items() if isinstance(v, InputFile)}
+        for k in files:
+            data.pop(k)
         return requests.Request(
             method='POST',
             url=self.METHOD or self.__class__.__name__.lower(),
