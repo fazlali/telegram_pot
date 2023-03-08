@@ -9,7 +9,7 @@ import requests
 from . import exceptions
 from .apis import GetUpdates
 from .model import API
-from .models import Update, Message, CallbackQuery
+from .models import Update, Message, CallbackQuery, InlineQuery
 
 
 class Process:
@@ -21,6 +21,8 @@ class Process:
 
 
 class TelegramBot:
+    API_BASE_URL = 'https://api.telegram.org'
+
     def __init__(self, api_key: str) -> None:
         self.api_key = api_key
         self.update_listeners: dict[str, list[Callable[..., bool]]] = {}
@@ -36,7 +38,7 @@ class TelegramBot:
 
     def execute(self, api: API):
         request = api.get_request()
-        request.url = f'https://tgapi.deed.ir/bot{self.api_key}/{request.url.strip("/")}'
+        request.url = f'{self.API_BASE_URL}/bot{self.api_key}/{request.url.strip("/")}'
         response = self.session.send(request.prepare(), timeout=32, allow_redirects=False).json()
         if response['ok']:
             api.set_result(response['result'])
@@ -131,6 +133,17 @@ class TelegramBot:
                 return handler(update.callback_query)
 
             self.add_listener('callback_query', listener)
+            return handler
+
+        return wrapper
+
+    def on_inline_query(self) \
+            -> Callable[[Callable[[InlineQuery], Any]], Callable[[InlineQuery], bool]]:
+        def wrapper(handler: Callable[[InlineQuery], bool]):
+            def listener(update: Update):
+                return handler(update.inline_query)
+
+            self.add_listener('inline_query', listener)
             return handler
 
         return wrapper

@@ -736,7 +736,7 @@ class InlineQueryResult(Model):
 
 
 class InlineQueryResultArticle(InlineQueryResult):
-    type: str
+    type: str = 'article'
     id: str
     title: str
     input_message_content: InputMessageContent
@@ -750,7 +750,7 @@ class InlineQueryResultArticle(InlineQueryResult):
 
 
 class InlineQueryResultPhoto(InlineQueryResult):
-    type: str
+    type: str = 'photo'
     id: str
     photo_url: str
     thumb_url: str
@@ -766,7 +766,7 @@ class InlineQueryResultPhoto(InlineQueryResult):
 
 
 class InlineQueryResultGif(InlineQueryResult):
-    type: str
+    type: str = 'gif'
     id: str
     gif_url: str
     gif_width: int
@@ -783,7 +783,7 @@ class InlineQueryResultGif(InlineQueryResult):
 
 
 class InlineQueryResultMpeg4Gif(InlineQueryResult):
-    type: str
+    type: str = 'mpeg4_gif'
     id: str
     mpeg4_url: str
     mpeg4_width: int
@@ -800,7 +800,7 @@ class InlineQueryResultMpeg4Gif(InlineQueryResult):
 
 
 class InlineQueryResultVideo(InlineQueryResult):
-    type: str
+    type: str = 'video'
     id: str
     video_url: str
     mime_type: str
@@ -818,7 +818,7 @@ class InlineQueryResultVideo(InlineQueryResult):
 
 
 class InlineQueryResultAudio(InlineQueryResult):
-    type: str
+    type: str = 'audio'
     id: str
     audio_url: str
     title: str
@@ -832,7 +832,7 @@ class InlineQueryResultAudio(InlineQueryResult):
 
 
 class InlineQueryResultVoice(InlineQueryResult):
-    type: str
+    type: str = 'voice'
     id: str
     voice_url: str
     title: str
@@ -845,7 +845,7 @@ class InlineQueryResultVoice(InlineQueryResult):
 
 
 class InlineQueryResultDocument(InlineQueryResult):
-    type: str
+    type: str = 'document'
     id: str
     title: str
     caption: str
@@ -862,7 +862,7 @@ class InlineQueryResultDocument(InlineQueryResult):
 
 
 class InlineQueryResultLocation(InlineQueryResult):
-    type: str
+    type: str = 'location'
     id: str
     latitude: float
     longitude: float
@@ -879,7 +879,7 @@ class InlineQueryResultLocation(InlineQueryResult):
 
 
 class InlineQueryResultVenue(InlineQueryResult):
-    type: str
+    type: str = 'venue'
     id: str
     latitude: float
     longitude: float
@@ -897,7 +897,7 @@ class InlineQueryResultVenue(InlineQueryResult):
 
 
 class InlineQueryResultContact(InlineQueryResult):
-    type: str
+    type: str = 'contact'
     id: str
     phone_number: str
     first_name: str
@@ -911,14 +911,14 @@ class InlineQueryResultContact(InlineQueryResult):
 
 
 class InlineQueryResultGame(InlineQueryResult):
-    type: str
+    type: str = 'game'
     id: str
     game_short_name: str
     reply_markup: InlineKeyboardMarkup
 
 
 class InlineQueryResultCachedPhoto(InlineQueryResult):
-    type: str
+    type: str = 'photo'
     id: str
     photo_file_id: str
     title: str
@@ -931,7 +931,7 @@ class InlineQueryResultCachedPhoto(InlineQueryResult):
 
 
 class InlineQueryResultCachedGif(InlineQueryResult):
-    type: str
+    type: str = 'gif'
     id: str
     gif_file_id: str
     title: str
@@ -943,7 +943,7 @@ class InlineQueryResultCachedGif(InlineQueryResult):
 
 
 class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
-    type: str
+    type: str = 'mpeg4_gif'
     id: str
     mpeg4_file_id: str
     title: str
@@ -955,7 +955,7 @@ class InlineQueryResultCachedMpeg4Gif(InlineQueryResult):
 
 
 class InlineQueryResultCachedSticker(InlineQueryResult):
-    type: str
+    type: str = 'sticker'
     id: str
     sticker_file_id: str
     reply_markup: InlineKeyboardMarkup
@@ -963,7 +963,7 @@ class InlineQueryResultCachedSticker(InlineQueryResult):
 
 
 class InlineQueryResultCachedDocument(InlineQueryResult):
-    type: str
+    type: str = 'document'
     id: str
     title: str
     document_file_id: str
@@ -976,7 +976,7 @@ class InlineQueryResultCachedDocument(InlineQueryResult):
 
 
 class InlineQueryResultCachedVideo(InlineQueryResult):
-    type: str
+    type: str = 'video'
     id: str
     video_file_id: str
     title: str
@@ -989,7 +989,7 @@ class InlineQueryResultCachedVideo(InlineQueryResult):
 
 
 class InlineQueryResultCachedVoice(InlineQueryResult):
-    type: str
+    type: str = 'voice'
     id: str
     voice_file_id: str
     title: str
@@ -1001,7 +1001,7 @@ class InlineQueryResultCachedVoice(InlineQueryResult):
 
 
 class InlineQueryResultCachedAudio(InlineQueryResult):
-    type: str
+    type: str = 'audio'
     id: str
     audio_file_id: str
     caption: str

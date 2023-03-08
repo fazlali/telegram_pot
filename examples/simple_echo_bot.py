@@ -2,9 +2,9 @@ import io
 
 import requests
 
-from src.telegram_pot.apis import SendMessage, SendPhoto
+from src.telegram_pot.apis import SendMessage, SendPhoto, AnswerInlineQuery
 from src.telegram_pot.bot import TelegramBot, Process
-from src.telegram_pot.models import Message, InputFile
+from src.telegram_pot.models import Message, InputFile, InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 
 bot = TelegramBot('BOT_API_KEY')
 
@@ -84,6 +84,24 @@ def start(message: Message, process: Process):
             chat_id=message.chat.id))
 
     return True
+
+
+@bot.on_inline_query()
+def on_inline_query(inline_query: InlineQuery):
+    if inline_query.query.isdigit():
+        bot.execute(AnswerInlineQuery(
+            inline_query_id=inline_query.id,
+            results=[
+                InlineQueryResultArticle(
+                    id=f'number:{i}',
+                    title=str(i),
+                    input_message_content=InputTextMessageContent(
+                        message_text=f'Hello {i}'
+                    )
+                )
+                for i in range(int(inline_query.query))
+            ]
+        ))
 
 
 bot.start()
