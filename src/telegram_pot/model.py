@@ -2,8 +2,8 @@ import builtins
 import io
 import sys
 import typing
-from types import GenericAlias
-from typing import Any
+from types import GenericAlias, UnionType
+from typing import Any, Union, get_args, get_origin
 
 import requests
 
@@ -12,6 +12,12 @@ def populate_value(_type, _value):
     if _value is None:
         return None
 
+    if isinstance(_type, UnionType) or get_origin(_type) == Union:
+        for arg in _type.__args__:
+            try:
+                return populate_value(arg, _value)
+            except ValueError:
+                pass
     if _type in [str, bool, int, float, dict, io.BytesIO]:
         if isinstance(_value, _type):
             return _value
@@ -20,19 +26,18 @@ def populate_value(_type, _value):
             return _type.from_dict(_value)
         elif isinstance(_value, _type):
             return _value
-    elif hasattr(_type, '__origin__') and _type.__origin__ == list:
+    elif get_origin(_type) == list:
         if isinstance(_value, list):
-            if hasattr(_type, '__args__') and len(_type.__args__):
-                return [populate_value(_type.__args__[0], v) for v in _value]
+            return [populate_value(_type.__args__[0], v) for v in _value]
 
     raise ValueError()
 
 
 def get_type(name, module=None, raise_on_fail=True):
     if isinstance(name, GenericAlias):
-        if name.__origin__ == list:
+        if get_origin(name) == list:
             return list[get_type(name.__args__[0], module, raise_on_fail)]
-        if name.__origin__ == dict:
+        if get_origin(name) == dict:
             return dict[get_type(name.__args__[0], module), get_type(name.__args__[1], module, raise_on_fail)]
     elif isinstance(name, type) or name == typing.Any:
         return name
@@ -47,6 +52,8 @@ def get_type(name, module=None, raise_on_fail=True):
             return ns['__parse_field__']()
         except NameError:
             pass
+    elif isinstance(name, UnionType) or get_origin(name) == Union:
+        return Union[tuple(get_type(arg, module, raise_on_fail) for arg in name.__args__)]
 
     if raise_on_fail:
         raise TypeError()
