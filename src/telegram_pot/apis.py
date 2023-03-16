@@ -4,7 +4,8 @@ from .models import MessageEntity, InputFile, InlineKeyboardMarkup, InputMedia, 
     InputMediaDocument, InputMediaPhoto, ChatPermissions, BotCommand, BotCommandScope, MenuButton, \
     ChatAdministratorRights, PhotoSize, File, MaskPosition, InlineQueryResult, LabeledPrice, ShippingOption, \
     PassportElementError, Update, WebhookInfo, User, Message, MessageId, UserProfilePhotos, ChatInviteLink, Chat, \
-    ChatMember, Sticker, ForumTopic, Poll, StickerSet, SentWebAppMessage, GameHighScore
+    ChatMember, Sticker, ForumTopic, Poll, StickerSet, SentWebAppMessage, GameHighScore, ReplyKeyboardMarkup, \
+    ReplyKeyboardRemove, ForceReply
 
 
 class GetUpdates(API):
@@ -53,7 +54,7 @@ class Close(API):
 class SendMessage(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     text: str
     parse_mode: str = ''
@@ -63,15 +64,15 @@ class SendMessage(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class ForwardMessage(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    from_chat_id: int
+    from_chat_id: int | str
     disable_notification: bool
     protect_content: bool
     message_id: int
@@ -80,9 +81,9 @@ class ForwardMessage(API):
 class CopyMessage(API):
     _result: MessageId
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    from_chat_id: int
+    from_chat_id: int | str
     message_id: int
     caption: str
     parse_mode: str
@@ -91,15 +92,15 @@ class CopyMessage(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendPhoto(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    photo: InputFile
+    photo: InputFile | str
     caption: str
     parse_mode: str
     caption_entities: list[MessageEntity]
@@ -108,36 +109,36 @@ class SendPhoto(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendAudio(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    audio: InputFile
+    audio: InputFile | str
     caption: str
     parse_mode: str
     caption_entities: list[MessageEntity]
     duration: int
     performer: str
     title: str
-    thumb: InputFile
+    thumb: InputFile | str
     disable_notification: bool
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendDocument(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    document: InputFile
-    thumb: InputFile
+    document: InputFile | str
+    thumb: InputFile | str
     caption: str
     parse_mode: str
     caption_entities: list[MessageEntity]
@@ -146,19 +147,19 @@ class SendDocument(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendVideo(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    video: InputFile
+    video: InputFile | str
     duration: int
     width: int
     height: int
-    thumb: InputFile
+    thumb: InputFile | str
     caption: str
     parse_mode: str
     caption_entities: list[MessageEntity]
@@ -168,19 +169,19 @@ class SendVideo(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendAnimation(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    animation: InputFile
+    animation: InputFile | str
     duration: int
     width: int
     height: int
-    thumb: InputFile
+    thumb: InputFile | str
     caption: str
     parse_mode: str
     caption_entities: list[MessageEntity]
@@ -189,15 +190,15 @@ class SendAnimation(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendVoice(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    voice: InputFile
+    voice: InputFile | str
     caption: str
     parse_mode: str
     caption_entities: list[MessageEntity]
@@ -206,31 +207,31 @@ class SendVoice(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendVideoNote(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    video_note: InputFile
+    video_note: InputFile | str
     duration: int
     length: int
-    thumb: InputFile
+    thumb: InputFile | str
     disable_notification: bool
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendMediaGroup(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    media: list[InputMediaAudio or InputMediaVideo or InputMediaDocument or InputMediaPhoto]
+    media: list[InputMediaAudio | InputMediaVideo | InputMediaDocument | InputMediaPhoto]
     disable_notification: bool
     protect_content: bool
     reply_to_message_id: int
@@ -240,7 +241,7 @@ class SendMediaGroup(API):
 class SendLocation(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     latitude: float
     longitude: float
@@ -252,13 +253,13 @@ class SendLocation(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class EditMessageLiveLocation(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
     latitude: float
@@ -272,7 +273,7 @@ class EditMessageLiveLocation(API):
 class StopMessageLiveLocation(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
     reply_markup: InlineKeyboardMarkup
@@ -281,7 +282,7 @@ class StopMessageLiveLocation(API):
 class SendVenue(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     latitude: float
     longitude: float
@@ -295,13 +296,13 @@ class SendVenue(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendContact(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     phone_number: str
     first_name: str
@@ -311,13 +312,13 @@ class SendContact(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendPoll(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     question: str
     options: list[str]
@@ -335,26 +336,26 @@ class SendPoll(API):
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendDice(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     emoji: str
     disable_notification: bool
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class SendChatAction(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     action: str
 
@@ -370,7 +371,7 @@ class GetUserProfilePhotos(API):
 class BanChatMember(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
     until_date: int
     revoke_messages: bool
@@ -379,7 +380,7 @@ class BanChatMember(API):
 class UnbanChatMember(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
     only_if_banned: bool
 
@@ -387,7 +388,7 @@ class UnbanChatMember(API):
 class RestrictChatMember(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
     permissions: ChatPermissions
     until_date: int
@@ -396,7 +397,7 @@ class RestrictChatMember(API):
 class PromoteChatMember(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
     is_anonymous: bool
     can_manage_chat: bool
@@ -415,7 +416,7 @@ class PromoteChatMember(API):
 class SetChatAdministratorCustomTitle(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
     custom_title: str
 
@@ -423,34 +424,34 @@ class SetChatAdministratorCustomTitle(API):
 class BanChatSenderChat(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     sender_chat_id: int
 
 
 class UnbanChatSenderChat(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     sender_chat_id: int
 
 
 class SetChatPermissions(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     permissions: ChatPermissions
 
 
 class ExportChatInviteLink(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class CreateChatInviteLink(API):
     _result: ChatInviteLink
 
-    chat_id: int
+    chat_id: int | str
     name: str
     expire_date: int
     member_limit: int
@@ -460,7 +461,7 @@ class CreateChatInviteLink(API):
 class EditChatInviteLink(API):
     _result: ChatInviteLink
 
-    chat_id: int
+    chat_id: int | str
     invite_link: str
     name: str
     expire_date: int
@@ -471,55 +472,55 @@ class EditChatInviteLink(API):
 class RevokeChatInviteLink(API):
     _result: ChatInviteLink
 
-    chat_id: int
+    chat_id: int | str
     invite_link: str
 
 
 class ApproveChatJoinRequest(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
 
 
 class DeclineChatJoinRequest(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
 
 
 class SetChatPhoto(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     photo: InputFile
 
 
 class DeleteChatPhoto(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class SetChatTitle(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     title: str
 
 
 class SetChatDescription(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     description: str
 
 
 class PinChatMessage(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     disable_notification: bool
 
@@ -527,58 +528,58 @@ class PinChatMessage(API):
 class UnpinChatMessage(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
 
 
 class UnpinAllChatMessages(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class LeaveChat(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class GetChat(API):
     _result: Chat
 
-    chat_id: int
+    chat_id: int | str
 
 
 class GetChatAdministrators(API):
     _result: list[ChatMember]
 
-    chat_id: int
+    chat_id: int | str
 
 
 class GetChatMemberCount(API):
     _result: int
 
-    chat_id: int
+    chat_id: int | str
 
 
 class GetChatMember(API):
     _result: ChatMember
 
-    chat_id: int
+    chat_id: int | str
     user_id: int
 
 
 class SetChatStickerSet(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     sticker_set_name: str
 
 
 class DeleteChatStickerSet(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class GetForumTopicIconStickers(API):
@@ -588,7 +589,7 @@ class GetForumTopicIconStickers(API):
 class CreateForumTopic(API):
     _result: ForumTopic
 
-    chat_id: int
+    chat_id: int | str
     name: str
     icon_color: int
     icon_custom_emoji_id: str
@@ -597,7 +598,7 @@ class CreateForumTopic(API):
 class EditForumTopic(API):
     _result: ForumTopic
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     name: str
     icon_custom_emoji_id: str
@@ -606,60 +607,60 @@ class EditForumTopic(API):
 class CloseForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
 
 
 class ReopenForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
 
 
 class DeleteForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
 
 
 class UnpinAllForumTopicMessages(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
 
 
 class EditGeneralForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     name: str
 
 
 class CloseGeneralForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class ReopenGeneralForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class HideGeneralForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class UnhideGeneralForumTopic(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
 
 
 class AnswerCallbackQuery(API):
@@ -723,7 +724,7 @@ class GetMyDefaultAdministratorRights(API):
 class EditMessageText(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
     text: str
@@ -736,7 +737,7 @@ class EditMessageText(API):
 class EditMessageCaption(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
     caption: str
@@ -748,7 +749,7 @@ class EditMessageCaption(API):
 class EditMessageMedia(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
     media: InputMedia
@@ -758,7 +759,7 @@ class EditMessageMedia(API):
 class EditMessageReplyMarkup(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
     reply_markup: InlineKeyboardMarkup
@@ -767,7 +768,7 @@ class EditMessageReplyMarkup(API):
 class StopPoll(API):
     _result: Poll
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     reply_markup: InlineKeyboardMarkup
 
@@ -775,7 +776,7 @@ class StopPoll(API):
 class DeleteMessage(API):
     _result: bool
 
-    chat_id: int
+    chat_id: int | str
     message_id: int
     file_id: str
     file_unique_id: str
@@ -796,14 +797,14 @@ class DeleteMessage(API):
 class SendSticker(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
-    sticker: InputFile
+    sticker: InputFile | str
     disable_notification: bool
     protect_content: bool
     reply_to_message_id: int
     allow_sending_without_reply: bool
-    reply_markup: InlineKeyboardMarkup
+    reply_markup: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply
 
 
 class GetStickerSet(API):
@@ -822,7 +823,7 @@ class UploadStickerFile(API):
     _result: File
 
     user_id: int
-    png_sticker: InputFile
+    png_sticker: InputFile | str
 
 
 class CreateNewStickerSet(API):
@@ -831,9 +832,9 @@ class CreateNewStickerSet(API):
     user_id: int
     name: str
     title: str
-    png_sticker: InputFile
-    tgs_sticker: InputFile
-    webm_sticker: InputFile
+    png_sticker: InputFile | str
+    tgs_sticker: InputFile | str
+    webm_sticker: InputFile | str
     sticker_type: str
     emojis: str
     mask_position: MaskPosition
@@ -844,9 +845,9 @@ class AddStickerToSet(API):
 
     user_id: int
     name: str
-    png_sticker: InputFile
-    tgs_sticker: InputFile
-    webm_sticker: InputFile
+    png_sticker: InputFile | str
+    tgs_sticker: InputFile | str
+    webm_sticker: InputFile | str
     emojis: str
     mask_position: MaskPosition
 
@@ -869,7 +870,7 @@ class SetStickerSetThumb(API):
 
     name: str
     user_id: int
-    thumb: InputFile
+    thumb: InputFile | str
 
 
 class AnswerInlineQuery(API):
@@ -894,7 +895,7 @@ class AnswerWebAppQuery(API):
 class SendInvoice(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     title: str
     description: str
@@ -976,7 +977,7 @@ class SetPassportDataErrors(API):
 class SendGame(API):
     _result: Message
 
-    chat_id: int
+    chat_id: int | str
     message_thread_id: int
     game_short_name: str
     disable_notification: bool
@@ -993,7 +994,7 @@ class SetGameScore(API):
     score: int
     force: bool
     disable_edit_message: bool
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
 
@@ -1002,6 +1003,6 @@ class GetGameHighScores(API):
     _result: list[GameHighScore]
 
     user_id: int
-    chat_id: int
+    chat_id: int | str
     message_id: int
     inline_message_id: str
